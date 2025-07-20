@@ -70,7 +70,7 @@ export default function HeroSection() {
           </h1>
           <div className="flex justify-center mb-4">
             <Avatar className="w-32 h-32">
-              <AvatarImage src="/jampic1.jpg" alt="Jamunadevi photo" />
+              <AvatarImage src="/jamPhoto.jpg" alt="Jamunadevi photo" />
               <AvatarFallback>JD</AvatarFallback>
             </Avatar>
           </div>
