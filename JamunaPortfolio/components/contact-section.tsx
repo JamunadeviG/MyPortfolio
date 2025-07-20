@@ -99,7 +99,7 @@ export default function ContactSection() {
               <div className="flex gap-4">
                 {/* TODO: Replace href with your actual LinkedIn profile URL */}
                 <a
-                  href="https://www.linkedin.com/in/your-linkedin-profile"
+                  href="https://www.linkedin.com/in/jamunadevi-g-108556322"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -113,7 +113,7 @@ export default function ContactSection() {
                 </a>
                 {/* TODO: Replace href with your actual GitHub profile URL */}
                 <a
-                  href="https://github.com/your-github-username"
+                  href="https://github.com/JamunadeviG"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
