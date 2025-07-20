@@ -17,7 +17,7 @@ export default function AboutSection() {
             <div className="relative">
               <div className="w-32 h-32 mx-auto md:mx-0 rounded-full bg-gradient-to-r from-teal-400 to-purple-400 p-1 mb-8 shadow-lg">
                 <Avatar className="w-full h-full">
-                  <AvatarImage src="/jampic1.jpg" alt="Jamunadevi photo" />
+                  <AvatarImage src="/jamPhoto.jpg" alt="Jamunadevi photo" />
                   <AvatarFallback>JD</AvatarFallback>
                 </Avatar>
               </div>
