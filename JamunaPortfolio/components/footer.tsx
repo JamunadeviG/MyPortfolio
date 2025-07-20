@@ -13,9 +13,8 @@ export default function Footer() {
           <div className="text-center md:text-right">
             <p className="text-gray-400 flex items-center justify-center md:justify-end gap-2">
               Made with <Heart className="h-4 w-4 text-red-500 animate-pulse" /> by{" "}
-              <span className="text-teal-400 font-semibold">Jammy</span>
+              <span className="text-teal-400 font-semibold">Jamuna</span>
             </p>
-            <p className="text-gray-500 text-sm mt-1">© 2024 All rights reserved</p>
           </div>
         </div>
       </div>
