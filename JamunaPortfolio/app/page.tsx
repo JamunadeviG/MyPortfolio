@@ -8,14 +8,17 @@ import Footer from "@/components/footer"
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800">
-      <HeroSection />
-      <AboutSection />
-      <ProjectsSection />
-      <SkillsSection />
-      <ResumeSection />
-      <ContactSection />
-      <Footer />
+    <div className="min-h-screen relative">
+      {/* All content sections with proper z-index layering */}
+      <div className="relative z-40 space-y-0">
+        <HeroSection />
+        <AboutSection />
+        <ProjectsSection />
+        <SkillsSection />
+        <ResumeSection />
+        <ContactSection />
+        <Footer />
+      </div>
     </div>
   )
 }
