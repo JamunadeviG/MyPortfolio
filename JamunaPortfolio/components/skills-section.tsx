@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
+import ScrollReveal from "@/components/scroll-reveal"
 
 const skillCategories = [
   {
@@ -43,23 +44,27 @@ export default function SkillsSection() {
     <section className="py-20 px-6">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Skills &{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-purple-400">
-              Tech Stack
-            </span>
-          </h2>
-          <p className="text-gray-400 text-lg">Technologies and tools I work with</p>
+          <ScrollReveal variant="slideDown">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Skills &{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-purple-400">
+                Tech Stack
+              </span>
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal variant="fadeIn" delay={200}>
+            <p className="text-gray-400 text-lg">Technologies and tools I work with</p>
+          </ScrollReveal>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {skillCategories.map((category, index) => (
-            <Card
-              key={index}
-              className="bg-slate-800/50 border-slate-700 hover:border-slate-600 transition-all duration-300 transform hover:scale-105 cursor-pointer"
-              onMouseEnter={() => setHoveredCategory(index)}
-              onMouseLeave={() => setHoveredCategory(null)}
-            >
+            <ScrollReveal key={index} variant="slideUp" delay={index * 150}>
+              <Card
+                className="bg-slate-800/50 border-slate-700 hover:border-slate-600 transition-all duration-300 transform hover:scale-105 cursor-pointer"
+                onMouseEnter={() => setHoveredCategory(index)}
+                onMouseLeave={() => setHoveredCategory(null)}
+              >
               <CardContent className="p-6">
                 <div className="text-center mb-6">
                   <div
@@ -91,7 +96,8 @@ export default function SkillsSection() {
                   ))}
                 </div>
               </CardContent>
-            </Card>
+              </Card>
+            </ScrollReveal>
           ))}
         </div>
       </div>
