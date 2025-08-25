@@ -93,7 +93,7 @@ export default function ContactSection() {
                     </div>
                     <div>
                       <p className="text-gray-400 text-sm">Phone</p>
-                      <p className="text-white">9043249887</p>
+                      <p className="text-white">+91 9043249887</p>
                     </div>
                   </div>
                 </div>
