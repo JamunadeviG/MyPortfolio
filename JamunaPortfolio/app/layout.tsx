@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import GlowingDotsBackground from '../components/glowing-dots-background'
+
+import { StickyNavbar } from '@/components/nav/sticky-navbar'
 
 export const metadata: Metadata = {
   title: 'My Portfolio',
@@ -13,13 +14,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className="min-h-screen bg-slate-900 text-white font-sans antialiased relative overflow-x-hidden">
-        {/* Glowing background */}
-        <GlowingDotsBackground />
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <head>
+        <meta name="color-scheme" content="dark" />
+        <meta name="theme-color" content="#0a0a0a" />
+      </head>
+      <body className="min-h-screen bg-background text-foreground font-sans antialiased relative overflow-x-hidden selection:bg-primary/30">
+        <StickyNavbar />
 
-        {/* Main content - ensure it's above glowing dots */}
-        <div className="relative z-30">
+        {/* Main content */}
+        <div className="relative z-30 pt-16">
           {children}
         </div>
       </body>
