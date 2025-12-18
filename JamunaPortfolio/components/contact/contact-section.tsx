@@ -34,9 +34,9 @@ export function ContactSection() {
 
         // EMAILJS CONFIGURATION
         // REPLACE THESE WITH YOUR ACTUAL KEYS FROM EMAILJS DASHBOARD
-        const SERVICE_ID = 'YOUR_SERVICE_ID';
-        const TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-        const PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+        const SERVICE_ID = 'service_njih509';
+        const TEMPLATE_ID = 'template_pv8mkrb';
+        const PUBLIC_KEY = 'a7cOQn9IjfCx0CN7F';
 
         try {
             // Using emailjs.send instead of sendForm to use the data object directly if less confusing, 
