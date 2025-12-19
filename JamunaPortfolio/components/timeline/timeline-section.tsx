@@ -24,7 +24,7 @@ const educationData = [
         id: "hsc",
         title: "Higher Secondary Certificate (HSC)",
         institution: "Perumanallur Govt. Girls Higher Secondary School",
-        location: "",
+        location: "Perumanallur, Tiruppur",
         period: "2022 - 2023",
         status: "Completed",
         score: "Percentage: 89.83%",
@@ -38,7 +38,7 @@ const educationData = [
         id: "sslc",
         title: "Secondary School Leaving Certificate (SSLC)",
         institution: "Pitchampalayam Govt High School",
-        location: "",
+        location: "Pitchampalayam, Tiruppur",
         period: "2020 - 2021",
         status: "Completed",
         score: "Completed",
@@ -171,11 +171,10 @@ export function TimelineSection() {
                                                 {/* Score/Badge */}
                                                 {item.score !== "Completed" && (
                                                     <div className={cn(
-                                                        "mt-2 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r border border-white/10 shadow-lg",
-                                                        item.size === "large" ? "from-indigo-500/20 to-purple-500/20" : "from-purple-500/20 to-pink-500/20"
+                                                        "mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#2e1d40] border border-white/5 shadow-lg",
                                                     )}>
-                                                        <item.scoreIcon className="w-5 h-5 text-yellow-400 fill-yellow-400" />
-                                                        <span className="text-lg font-bold text-white">{item.score}</span>
+                                                        <item.scoreIcon className="w-5 h-5 text-purple-400 fill-purple-800" />
+                                                        <span className="text-base font-bold text-white">{item.score}</span>
                                                     </div>
                                                 )}
                                             </div>

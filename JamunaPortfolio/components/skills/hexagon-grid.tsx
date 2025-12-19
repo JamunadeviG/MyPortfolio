@@ -3,10 +3,19 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useMemo } from "react";
 import {
-    Code2, Layout, Server, Database, Brain, Wrench, Search,
-    Award, CheckCircle2, Circle
+    Award, Search
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+// Icon Imports
+import {
+    SiC, SiPython, SiDart, SiFlutter, SiJavascript, SiNodedotjs, SiExpress, SiFlask,
+    SiMongodb, SiMysql, SiTensorflow, SiScikitlearn, SiPandas, SiNumpy,
+    SiPostman
+} from "react-icons/si";
+import { FaJava, FaReact, FaHtml5, FaCss3Alt, FaNodeJs, FaDna, FaGithub, FaGitAlt } from "react-icons/fa";
+import { GiBrain } from "react-icons/gi";
+import { VscVscode } from "react-icons/vsc";
 
 // Types
 type Proficiency = "Advanced" | "Intermediate" | "Certified";
@@ -17,7 +26,8 @@ interface Skill {
     category: Category;
     proficiency: Proficiency;
     percent: number;
-    icon?: any; // Lucide icon or string char used in placeholder
+    icon: React.ReactNode;
+    color: string;
     related?: string[];
     certified?: boolean;
 }
@@ -25,45 +35,40 @@ interface Skill {
 // Data
 const skillsData: Skill[] = [
     // Programming
-    { name: "C", category: "Programming Languages", proficiency: "Intermediate", percent: 75, icon: "C" },
-    { name: "Java", category: "Programming Languages", proficiency: "Advanced", percent: 90, icon: "☕" },
-    { name: "Python", category: "Programming Languages", proficiency: "Advanced", percent: 95, icon: "🐍", related: ["TensorFlow", "Scikit-Learn", "Flask"] },
-    { name: "Dart", category: "Programming Languages", proficiency: "Intermediate", percent: 70, icon: "🎯", related: ["Flutter"] },
-    // Frontend
-    { name: "React.js", category: "Frontend", proficiency: "Advanced", percent: 90, icon: "⚛️", related: ["Node.js", "MongoDB", "JavaScript"] },
-    { name: "Flutter", category: "Frontend", proficiency: "Intermediate", percent: 75, icon: "💙", related: ["Dart"] },
-    { name: "HTML/CSS", category: "Frontend", proficiency: "Advanced", percent: 90, icon: "🌐" },
-    { name: "JavaScript", category: "Frontend", proficiency: "Advanced", percent: 88, icon: "JS", related: ["React.js", "Node.js"] },
-    // Backend
-    { name: "Node.js", category: "Backend", proficiency: "Advanced", percent: 85, icon: "🟢", related: ["JavaScript", "Express.js", "React.js"] },
-    { name: "Express.js", category: "Backend", proficiency: "Advanced", percent: 85, icon: "🚂", related: ["Node.js"] },
-    { name: "Flask", category: "Backend", proficiency: "Intermediate", percent: 70, icon: "🌶️", related: ["Python"] },
-    // Database
-    { name: "MongoDB", category: "Databases", proficiency: "Advanced", percent: 100, icon: "🍃", certified: true },
-    { name: "MySQL", category: "Databases", proficiency: "Advanced", percent: 85, icon: "🐬" },
-    // AI/ML
-    { name: "TensorFlow", category: "AI/ML", proficiency: "Intermediate", percent: 70, icon: "🧠", related: ["Python"] },
-    { name: "Scikit-Learn", category: "AI/ML", proficiency: "Advanced", percent: 90, icon: "🔬" },
-    { name: "BioPython", category: "AI/ML", proficiency: "Intermediate", percent: 65, icon: "🧬" },
-    { name: "Pandas", category: "AI/ML", proficiency: "Advanced", percent: 88, icon: "🐼" },
-    { name: "NumPy", category: "AI/ML", proficiency: "Advanced", percent: 88, icon: "🔢" },
-    { name: "Machine Learning", category: "AI/ML", proficiency: "Advanced", percent: 90, icon: "🤖" },
-    // Tools
-    { name: "GitHub", category: "Tools", proficiency: "Advanced", percent: 90, icon: "🐱" },
-    { name: "Git", category: "Tools", proficiency: "Advanced", percent: 85, icon: "📦" },
-    { name: "VS Code", category: "Tools", proficiency: "Advanced", percent: 95, icon: "📝" },
-    { name: "Postman", category: "Tools", proficiency: "Intermediate", percent: 75, icon: "🚀" },
-];
+    { name: "C", category: "Programming Languages", proficiency: "Intermediate", percent: 75, icon: <SiC className="text-[#A8B9CC]" />, color: "#A8B9CC" },
+    { name: "Java", category: "Programming Languages", proficiency: "Advanced", percent: 90, icon: <FaJava className="text-[#007396]" />, color: "#007396" },
+    { name: "Python", category: "Programming Languages", proficiency: "Intermediate", percent: 95, icon: <SiPython className="text-[#3776AB]" />, color: "#3776AB", related: ["TensorFlow", "Scikit-Learn", "Flask"] },
+    { name: "Dart", category: "Programming Languages", proficiency: "Intermediate", percent: 70, icon: <SiDart className="text-[#0175C2]" />, color: "#0175C2", related: ["Flutter"] },
 
-// Color Mapping
-const categoryColors: Record<Category, string> = {
-    "Programming Languages": "#8b5cf6", // Purple
-    "Frontend": "#06b6d4", // Teal
-    "Backend": "#f97316", // Orange
-    "Databases": "#10b981", // Green
-    "AI/ML": "#6366f1", // Indigo
-    "Tools": "#6b7280", // Gray
-};
+    // Frontend
+    { name: "React.js", category: "Frontend", proficiency: "Advanced", percent: 90, icon: <FaReact className="text-[#61DAFB] group-hover:animate-spin" />, color: "#61DAFB", related: ["Node.js", "MongoDB", "JavaScript"] },
+    { name: "Flutter", category: "Frontend", proficiency: "Intermediate", percent: 75, icon: <SiFlutter className="text-[#02569B]" />, color: "#02569B", related: ["Dart"] },
+    { name: "HTML/CSS", category: "Frontend", proficiency: "Advanced", percent: 90, icon: <div className="flex gap-1"><FaHtml5 className="text-[#E34F26]" /><FaCss3Alt className="text-[#1572B6]" /></div>, color: "#E34F26" },
+    { name: "JavaScript", category: "Frontend", proficiency: "Advanced", percent: 88, icon: <SiJavascript className="text-[#F7DF1E] bg-black" />, color: "#F7DF1E", related: ["React.js", "Node.js"] },
+
+    // Backend
+    { name: "Node.js", category: "Backend", proficiency: "Advanced", percent: 85, icon: <FaNodeJs className="text-[#339933]" />, color: "#339933", related: ["JavaScript", "Express.js", "React.js"] },
+    { name: "Express.js", category: "Backend", proficiency: "Advanced", percent: 85, icon: <SiExpress className="text-white" />, color: "#FFFFFF", related: ["Node.js"] },
+    { name: "Flask", category: "Backend", proficiency: "Intermediate", percent: 70, icon: <SiFlask className="text-white" />, color: "#FFFFFF", related: ["Python"] },
+
+    // Database
+    { name: "MongoDB", category: "Databases", proficiency: "Advanced", percent: 100, icon: <SiMongodb className="text-[#47A248]" />, color: "#47A248", certified: true },
+    { name: "MySQL", category: "Databases", proficiency: "Advanced", percent: 85, icon: <SiMysql className="text-[#4479A1]" />, color: "#4479A1" },
+
+    // AI/ML
+    { name: "TensorFlow", category: "AI/ML", proficiency: "Intermediate", percent: 70, icon: <SiTensorflow className="text-[#FF6F00]" />, color: "#FF6F00", related: ["Python"] },
+    { name: "Scikit-Learn", category: "AI/ML", proficiency: "Advanced", percent: 90, icon: <SiScikitlearn className="text-[#F7931E]" />, color: "#F7931E" },
+    { name: "BioPython", category: "AI/ML", proficiency: "Intermediate", percent: 65, icon: <FaDna className="text-[#3776AB]" />, color: "#3776AB" },
+    { name: "Pandas", category: "AI/ML", proficiency: "Advanced", percent: 88, icon: <SiPandas className="text-[#150458] bg-white rounded-full" />, color: "#150458" },
+    { name: "NumPy", category: "AI/ML", proficiency: "Advanced", percent: 88, icon: <SiNumpy className="text-[#013243]" />, color: "#013243" },
+    { name: "Machine Learning", category: "AI/ML", proficiency: "Advanced", percent: 90, icon: <GiBrain className="text-[#6366F1]" />, color: "#6366F1" },
+
+    // Tools
+    { name: "GitHub", category: "Tools", proficiency: "Advanced", percent: 90, icon: <FaGithub className="text-white" />, color: "#FFFFFF" },
+    { name: "Git", category: "Tools", proficiency: "Advanced", percent: 85, icon: <FaGitAlt className="text-[#F05032]" />, color: "#F05032" },
+    { name: "VS Code", category: "Tools", proficiency: "Advanced", percent: 95, icon: <VscVscode className="text-[#007ACC]" />, color: "#007ACC" },
+    { name: "Postman", category: "Tools", proficiency: "Intermediate", percent: 75, icon: <SiPostman className="text-[#FF6C37]" />, color: "#FF6C37" },
+];
 
 export function HexagonGrid() {
     const [activeCategory, setActiveCategory] = useState<Category | "All">("All");
@@ -119,7 +124,6 @@ export function HexagonGrid() {
                     {filteredSkills.map((skill, index) => {
                         const isRelated = hoveredSkill?.related?.includes(skill.name) || hoveredSkill?.name === skill.name;
                         const isDimmed = hoveredSkill && !isRelated;
-                        const color = categoryColors[skill.category];
 
                         return (
                             <motion.div
@@ -142,19 +146,17 @@ export function HexagonGrid() {
                                     className="absolute inset-0 transition-all duration-300 backdrop-blur-sm"
                                     style={{
                                         clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
-                                        backgroundColor: isRelated ? `${color}40` : "rgba(255,255,255,0.05)",
-                                        boxShadow: isRelated ? `0 0 30px ${color}` : "none",
-                                        border: isRelated ? `2px solid ${color}` : "2px solid rgba(255,255,255,0.1)"
+                                        backgroundColor: isRelated ? `${skill.color}20` : "rgba(255,255,255,0.05)",
+                                        boxShadow: isRelated ? `0 0 30px ${skill.color}40` : "none",
+                                        border: isRelated ? `2px solid ${skill.color}` : "2px solid rgba(255,255,255,0.1)"
                                     }}
                                 />
 
-                                {/* Border Hexagon (Simulated via drop-shadow on SVG if needed, but css borders on clip-path don't work well. 
-                                 Alternative: inset shadow or another div slightly smaller) 
-                             */}
-
                                 {/* Content */}
                                 <div className="relative z-10 flex flex-col items-center gap-2 text-center p-2">
-                                    <span className="text-3xl md:text-4xl drop-shadow-lg filter">{skill.icon}</span>
+                                    <span className="text-3xl md:text-5xl drop-shadow-lg filter transition-transform duration-300 group-hover:scale-110">
+                                        {skill.icon}
+                                    </span>
                                     <span className={cn("text-xs md:text-sm font-bold transition-colors", isRelated ? "text-white" : "text-gray-400")}>
                                         {skill.name}
                                     </span>
@@ -165,7 +167,7 @@ export function HexagonGrid() {
                                             className="h-full transition-all duration-500"
                                             style={{
                                                 width: `${skill.percent}%`,
-                                                backgroundColor: color
+                                                backgroundColor: skill.color
                                             }}
                                         />
                                     </div>
@@ -177,14 +179,14 @@ export function HexagonGrid() {
                                     )}
                                 </div>
 
-                                {/* Hover Tooltip (Simulated) */}
+                                {/* Hover Tooltip */}
                                 {hoveredSkill?.name === skill.name && (
                                     <motion.div
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         className="absolute -bottom-16 left-1/2 -translate-x-1/2 z-50 bg-black/90 text-white text-xs p-2 rounded-lg whitespace-nowrap border border-white/20 shadow-xl"
                                     >
-                                        <p className="font-bold text-base mb-1" style={{ color }}>{skill.proficiency}</p>
+                                        <p className="font-bold text-base mb-1" style={{ color: skill.color }}>{skill.proficiency}</p>
                                         <p className="text-gray-400">{skill.category}</p>
                                     </motion.div>
                                 )}

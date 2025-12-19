@@ -55,34 +55,28 @@ export function AboutSection() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
               viewport={{ once: true }}
-              className="relative group h-full"
+              className="group relative rounded-2xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:shadow-[0_0_20px_rgba(99,102,241,0.4)] transition-all duration-300"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-500" />
-              <div className="relative h-full bg-white/5 backdrop-blur-md border border-indigo-500/30 p-8 rounded-2xl transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_8px_32px_rgba(99,102,241,0.2)]">
-                {/* Animated Border Flow - Simulated via CSS or simpler glow */}
+              {/* Gradient Border */}
+              <div className="absolute inset-0 p-[2px] rounded-2xl bg-gradient-to-br from-[rgba(99,102,241,0.3)] to-[rgba(139,92,246,0.3)]" style={{ mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)' }}></div>
 
-                <div className="flex flex-col gap-6">
-                  <div className="w-14 h-14 rounded-xl bg-indigo-500/10 flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
-                    <Bot className="w-8 h-8 text-indigo-400" />
+              <div className="relative h-full bg-white/5 backdrop-blur-xl p-6 pl-8 rounded-2xl">
+                <div className="flex justify-between items-start mb-6">
+                  <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-[rgba(99,102,241,0.1)] border border-[rgba(99,102,241,0.2)]">
+                    <Bot className="w-6 h-6 text-[#6366F1]" />
                   </div>
-
-                  <div>
-                    <h4 className="text-xl font-bold text-white mb-1">Technical Head</h4>
-                    <p className="text-indigo-400 font-medium bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">AI Association Club</p>
-                  </div>
-
-                  <div className="inline-flex items-center gap-2 self-start px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-xs font-medium text-green-400">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                    </span>
-                    2023 - Present
-                  </div>
-
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    Leading technical initiatives, organizing AI/ML workshops, and mentoring members in various technical projects.
-                  </p>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[rgba(99,102,241,0.15)] text-[#818CF8] text-xs font-medium border border-[rgba(99,102,241,0.2)]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#6366F1] animate-pulse"></span>
+                    2023 - 2024
+                  </span>
                 </div>
+
+                <h4 className="text-xl font-bold text-white mb-1 leading-tight">Technical Head</h4>
+                <p className="text-gray-300 font-normal mb-4">AI Association Club</p>
+
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  Leading technical initiatives, organizing AI/ML workshops, and mentoring members in various technical projects.
+                </p>
               </div>
             </motion.div>
 
@@ -92,33 +86,28 @@ export function AboutSection() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4 }}
               viewport={{ once: true }}
-              className="relative group h-full"
+              className="group relative rounded-2xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:shadow-[0_0_20px_rgba(239,68,68,0.4)] transition-all duration-300"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-red-500 to-rose-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-500" />
-              <div className="relative h-full bg-white/5 backdrop-blur-md border border-red-500/30 p-8 rounded-2xl transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_8px_32px_rgba(239,68,68,0.2)]">
+              {/* Gradient Border */}
+              <div className="absolute inset-0 p-[2px] rounded-2xl bg-gradient-to-br from-[rgba(239,68,68,0.3)] to-[rgba(220,38,38,0.3)]" style={{ mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)' }}></div>
 
-                <div className="flex flex-col gap-6">
-                  <div className="w-14 h-14 rounded-xl bg-red-500/10 flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
-                    <Ribbon className="w-8 h-8 text-red-400" />
+              <div className="relative h-full bg-white/5 backdrop-blur-xl p-6 pl-8 rounded-2xl">
+                <div className="flex justify-between items-start mb-6">
+                  <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-[rgba(239,68,68,0.1)] border border-[rgba(239,68,68,0.2)]">
+                    <Ribbon className="w-6 h-6 text-[#EF4444]" />
                   </div>
-
-                  <div>
-                    <h4 className="text-xl font-bold text-white mb-1">Executive Member</h4>
-                    <p className="text-red-400 font-medium bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-rose-400">Red Ribbon Club</p>
-                  </div>
-
-                  <div className="inline-flex items-center gap-2 self-start px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-xs font-medium text-green-400">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                    </span>
-                    2023 - Present
-                  </div>
-
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    Coordinating awareness programs, organizing health campaigns, and driving community outreach initiatives.
-                  </p>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[rgba(99,102,241,0.15)] text-[#818CF8] text-xs font-medium border border-[rgba(99,102,241,0.2)]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#6366F1] animate-pulse"></span>
+                    2023 - 2024
+                  </span>
                 </div>
+
+                <h4 className="text-xl font-bold text-white mb-1 leading-tight">Executive Member</h4>
+                <p className="text-gray-300 font-normal mb-4">Red Ribbon Club</p>
+
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  Coordinating awareness programs, organizing health campaigns, and driving community outreach initiatives.
+                </p>
               </div>
             </motion.div>
           </div>

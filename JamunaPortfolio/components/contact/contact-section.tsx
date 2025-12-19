@@ -1,26 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, MapPin, Phone, Send, Github, Linkedin, AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
+import { Send, AlertCircle, CheckCircle2, Loader2, Mail, Phone } from "lucide-react";
+// React Icons
+import { FaLinkedin, FaGithub } from "react-icons/fa";
+import { SiLeetcode } from "react-icons/si";
+
 import { GlassCard } from "../ui/glass-card";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useRef } from "react";
 import emailjs from '@emailjs/browser';
-
-// Custom LeetCode Icon
-const LeetCodeIcon = ({ className }: { className?: string }) => (
-    <svg
-        role="img"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-        className={className}
-        fill="currentColor"
-    >
-        <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.173 5.423a1.398 1.398 0 0 0-.437.961 1.394 1.394 0 0 0 .437.961l5.348 4.985a1.597 1.597 0 0 0 2.096-.15 1.533 1.533 0 0 0 .15-2.096l-3.23-3.13 3.659-3.41a1.394 1.394 0 0 0 .437-.961 1.385 1.385 0 0 0-.437-.961 1.38 1.38 0 0 0-.96-.438h-.733Zm-2.5 13.063c-.15 0-.301.033-.438.095l-5.111 2.379a1.53 1.53 0 0 0-.742 2.016 1.528 1.528 0 0 0 2.016.742l3.359-1.562 3.359 1.562a1.531 1.531 0 0 0 2.016-.742 1.525 1.525 0 0 0-.742-2.016l-3.376-1.57a1.328 1.328 0 0 0-.341-.094Zm6.917.433-5.348 4.985a1.395 1.395 0 0 0-.437.961 1.398 1.398 0 0 0 .437.961l5.349 4.985a1.366 1.366 0 0 0 .96.438c.36 0 .723-.15.961-.438a1.398 1.398 0 0 0 .437-.961 1.394 1.394 0 0 0-.437-.961l-3.66-3.41 3.231-3.13a1.542 1.542 0 0 0 .15-2.096 1.63 1.63 0 0 0-2.196-.28Z" />
-    </svg>
-);
 
 // Form Schema
 const contactSchema = z.object({
@@ -65,7 +56,7 @@ export function ContactSection() {
 
             setNotification({
                 type: 'success',
-                message: "✅ Message sent successfully! I'll get back to you soon"
+                message: "Message sent successfully! I'll get back to you soon"
             });
             reset();
 
@@ -78,7 +69,7 @@ export function ContactSection() {
             console.error(error);
             setNotification({
                 type: 'error',
-                message: "❌ Oops! Something went wrong. Please try again or email directly at jamunadevig.2006@gmail.com"
+                message: "Oops! Something went wrong. Please try again or email directly at jamunadevig.2006@gmail.com"
             });
 
             // Auto dismiss error
@@ -108,14 +99,12 @@ export function ContactSection() {
                     <div className="space-y-8">
                         <div className="grid gap-6">
                             {[
-                                { icon: Mail, label: "Email", value: "jamunadevig.2006@gmail.com", href: "mailto:jamunadevig.2006@gmail.com" },
-                                // Removed Phone from visual display if requested, but user said "remove phone input". 
-                                // I will keep the contact info display unless asked to remove.
-                                { icon: Phone, label: "Phone", value: "+91 9043249887", href: "tel:+919043249887" }
+                                { icon: Mail, label: "Email", value: "jamunadevig.2006@gmail.com", href: "mailto:jamunadevig.2006@gmail.com", bgClass: "bg-white/5", iconClass: "text-white" },
+                                { icon: Phone, label: "Phone", value: "+91 9043249887", href: "tel:+919043249887", bgClass: "bg-white/5", iconClass: "text-white" }
                             ].map((item, idx) => (
                                 <GlassCard key={idx} className="p-6 flex items-center gap-6 hover:border-primary/50 transition-colors group">
-                                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300">
-                                        <item.icon className="w-6 h-6" />
+                                    <div className={`w-12 h-12 rounded-full ${item.bgClass} flex items-center justify-center group-hover:scale-110 transition-all duration-300`}>
+                                        <item.icon className={`w-6 h-6 ${item.iconClass}`} />
                                     </div>
                                     <div>
                                         <h4 className="text-sm font-medium text-muted-foreground">{item.label}</h4>
@@ -129,14 +118,14 @@ export function ContactSection() {
 
                         {/* Social Links */}
                         <div className="flex gap-4 justify-center lg:justify-start relative z-20">
-                            <a href="https://github.com/JamunadeviG" target="_blank" className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary hover:text-white hover:-translate-y-1 transition-all duration-300 shadow-lg cursor-pointer">
-                                <Github className="w-5 h-5" />
+                            <a href="https://github.com/JamunadeviG" target="_blank" className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white hover:text-black hover:-translate-y-1 transition-all duration-300 shadow-lg cursor-pointer text-white">
+                                <FaGithub className="w-6 h-6" />
                             </a>
-                            <a href="https://www.linkedin.com/in/jamunadevi2006" target="_blank" className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary hover:text-white hover:-translate-y-1 transition-all duration-300 shadow-lg cursor-pointer">
-                                <Linkedin className="w-5 h-5" />
+                            <a href="https://www.linkedin.com/in/jamunadevi2006" target="_blank" className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#0A66C2] hover:text-white hover:-translate-y-1 transition-all duration-300 shadow-lg cursor-pointer text-[#0A66C2]">
+                                <FaLinkedin className="w-6 h-6" />
                             </a>
-                            <a href="https://leetcode.com/u/JamunaDevi_2006" target="_blank" className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary hover:text-white hover:-translate-y-1 transition-all duration-300 shadow-lg cursor-pointer">
-                                <LeetCodeIcon className="w-5 h-5" />
+                            <a href="https://leetcode.com/u/JamunaDevi_2006" target="_blank" className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#FFA116] hover:text-white hover:-translate-y-1 transition-all duration-300 shadow-lg cursor-pointer text-[#FFA116]">
+                                <SiLeetcode className="w-6 h-6" />
                             </a>
                         </div>
                     </div>
