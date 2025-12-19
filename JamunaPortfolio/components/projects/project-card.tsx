@@ -134,11 +134,16 @@ export function ProjectCard({ project, onClick, className }: ProjectCardProps) {
                         {/* Footer Actions */}
                         <div className="flex justify-between items-center opacity-80 group-hover:opacity-100 transition-all duration-300">
                             <div className="flex gap-2">
-                                {project.githubLink && (
-                                    <a href={project.githubLink} target="_blank" rel="noopener noreferrer"
+                                {project.githubLink && project.githubLink !== "#" && (
+                                    <a
+                                        href={project.githubLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         onClick={(e) => e.stopPropagation()}
-                                        className="p-1.5 rounded-full bg-white/5 hover:bg-white/20 transition-all text-white/70 hover:text-white">
-                                        <Github className="w-4 h-4" />
+                                        className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 hover:border-white/20 transition-all text-xs font-medium text-white group/btn"
+                                    >
+                                        <Github className="w-3.5 h-3.5 group-hover/btn:scale-110 transition-transform" />
+                                        View Code
                                     </a>
                                 )}
                                 {project.demoLink && (
