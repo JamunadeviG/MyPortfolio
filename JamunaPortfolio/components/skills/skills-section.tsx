@@ -72,7 +72,7 @@ export function SkillsSection() {
                                     Issued: 2024
                                 </p>
 
-                                <a href="#" className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg border border-[#00ED64]/50 text-[#00ED64] bg-transparent hover:bg-[#00ED64]/10 transition-colors duration-300 text-sm font-semibold w-full justify-center md:w-auto">
+                                <a href="mongodb.jpeg" className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg border border-[#00ED64]/50 text-[#00ED64] bg-transparent hover:bg-[#00ED64]/10 transition-colors duration-300 text-sm font-semibold w-full justify-center md:w-auto">
                                     View Credential <ExternalLink className="w-4 h-4" />
                                 </a>
                             </div>
@@ -106,7 +106,7 @@ export function SkillsSection() {
                                     Issued: 2024
                                 </p>
 
-                                <a href="#" className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg border border-[#F80000]/50 text-[#F80000] bg-transparent hover:bg-[#F80000]/10 transition-colors duration-300 text-sm font-semibold w-full justify-center md:w-auto">
+                                <a href="oracle.jpeg" className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg border border-[#F80000]/50 text-[#F80000] bg-transparent hover:bg-[#F80000]/10 transition-colors duration-300 text-sm font-semibold w-full justify-center md:w-auto">
                                     View Credential <ExternalLink className="w-4 h-4" />
                                 </a>
                             </div>

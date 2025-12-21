@@ -31,7 +31,7 @@ const projectsData: Project[] = [
         date: "2025-01-01",
         badges: ["Featured", "New"],
         size: "large",
-        githubLink: "#"
+        githubLink: "https://github.com/JamunadeviG/agriAI"
     },
     // Row 2
     {
@@ -83,23 +83,11 @@ const projectsData: Project[] = [
     },
     // Row 3 (Full Stack)
     {
-        id: "agrohub",
-        title: "AgroHub",
-        category: "Full-Stack",
-        description: "A comprehensive web application that allows farmers to sell agricultural products directly, manage transport for deliveries, and raise complaints through a simple and accessible interface.",
-        image: "",
-        techStack: ["React", "Node.js", "Express.js", "MongoDB", "RESTful API"],
-        date: "2024-08-01",
-        // category: "E-commerce", // Using main category for color, but filtering via "Full-Stack" mapping
-        size: "large",
-        githubLink: "https://github.com/JamunadeviG/AgroHub"
-    } as any,
-    {
         id: "vendorx",
         title: "VendorX",
         category: "Full-Stack",
         description: "Automated college procurement system for handling department purchase requests, tracking purchase history, and managing admin approval workflows with role-based access control.",
-        image: "",
+        image: "vendorx.jpg",
         techStack: ["MongoDB", "Express.js", "React", "Node.js (MERN)", "TypeScript", "Tailwind CSS"],
         date: "2024-09-01",
         size: "large",

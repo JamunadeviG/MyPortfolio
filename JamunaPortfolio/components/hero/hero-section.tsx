@@ -57,7 +57,7 @@ export function HeroSection() {
                                 {(
                                     <img
                                         src="/jamPhoto.jpg"
-                                        alt="Jamunadevi"
+                                        alt="JamunadeviG"
                                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                     />
                                 )}
@@ -99,7 +99,7 @@ export function HeroSection() {
                                 </motion.h2>
 
                                 <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight">
-                                    <span className="text-gradient">Jamunadevi</span>
+                                    <span className="text-gradient">Jamunadevi G</span>
                                 </h1>
 
                                 <div className="flex justify-center lg:justify-start">
