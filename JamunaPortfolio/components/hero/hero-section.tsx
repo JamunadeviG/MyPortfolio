@@ -3,28 +3,26 @@
 import { motion } from "framer-motion";
 import { ArrowDown, FileText, Send } from "lucide-react";
 import Link from "next/link";
-import { HeroOrb } from "./hero-orb";
 import { TextReveal } from "./text-reveal";
 import { GlassCard } from "../ui/glass-card";
 
 export function HeroSection() {
     return (
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 md:pt-0">
-            {/* 3D Background Orb */}
-            <HeroOrb />
-
             {/* Floating Particles/Shapes Background (CSS/SVG) */}
             <div className="absolute inset-0 z-0 pointer-events-none">
                 {/* Abstract circles */}
                 <motion.div
+                    initial={{ opacity: 0 }}
                     animate={{ y: [0, -20, 0], opacity: [0.3, 0.6, 0.3] }}
                     transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/20 rounded-full blur-3xl mix-blend-screen"
+                    className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/20 rounded-full blur-3xl mix-blend-screen opacity-0"
                 />
                 <motion.div
+                    initial={{ opacity: 0 }}
                     animate={{ y: [0, 30, 0], x: [0, 20, 0], opacity: [0.2, 0.5, 0.2] }}
                     transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                    className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl mix-blend-screen"
+                    className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl mix-blend-screen opacity-0"
                 />
             </div>
 

@@ -1,116 +1,223 @@
 "use client";
 
+import { useRef, useState } from "react";
 import { HexagonGrid } from "./hexagon-grid";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { GlassCard } from "../ui/glass-card";
-import { Award, Cloud, ExternalLink, CheckCircle2 } from "lucide-react";
+import { Award, Cloud, ExternalLink, CheckCircle2, Sparkles, Database, Server } from "lucide-react";
 
+// --- 3D TILT CARD COMPONENT ---
+interface CertificationCardProps {
+    title: string;
+    issuer: string;
+    date: string;
+    icon: React.ReactNode;
+    color: string; // Hex color
+    link: string;
+    proficiency: number;
+}
+
+function CertificationCard({ title, issuer, date, icon, color, link, proficiency }: CertificationCardProps) {
+    const ref = useRef<HTMLDivElement>(null);
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    const mouseXSpring = useSpring(x);
+    const mouseYSpring = useSpring(y);
+
+    const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
+    const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        const rect = ref.current?.getBoundingClientRect();
+        if (!rect) return;
+
+        const width = rect.width;
+        const height = rect.height;
+
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        const xPct = mouseX / width - 0.5;
+        const yPct = mouseY / height - 0.5;
+
+        x.set(xPct);
+        y.set(yPct);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
+
+    return (
+        <motion.div
+            ref={ref}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+            className="group relative h-full perspective-1000"
+        >
+            {/* Animated Glow Behind */}
+            <div
+                className="absolute inset-0 blur-[60px] opacity-0 group-hover:opacity-40 transition-opacity duration-500 -z-10"
+                style={{ background: color }}
+            />
+
+            {/* Main Card */}
+            <div
+                className="relative h-full bg-purple/90 backdrop-blur-xl border-[3px] rounded-3xl overflow-hidden shadow-2xl transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.2)]"
+                style={{ borderColor: color }}
+            >
+                {/* Background Pattern */}
+                <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:16px_16px]" />
+
+                {/* Decorative Corner Accent */}
+                <div
+                    className="absolute -top-10 -right-10 w-24 h-24 rotate-45 opacity-20 transition-transform duration-500 group-hover:scale-150"
+                    style={{ background: color }}
+                />
+
+                <div className="relative p-8 flex flex-col h-full transform-style-3d">
+                    {/* Header */}
+                    <div className="flex justify-between items-start mb-6">
+                        {/* Icon Container with Bounce */}
+                        <div
+                            className="w-16 h-16 rounded-2xl flex items-center justify-center text-white shadow-lg transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110"
+                            style={{
+                                background: `linear-gradient(135deg, ${color}, ${adjustColor(color, -40)})`
+                            }}
+                        >
+                            <div className="w-8 h-8">
+                                {icon}
+                            </div>
+                        </div>
+
+                        {/* Badge with Sparkles */}
+                        <div className="relative group/badge">
+                            <span
+                                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm transition-all duration-300 group-hover/badge:scale-105"
+                                style={{
+                                    backgroundColor: `${color}15`, // Digits for opacity 
+                                    color: color,
+                                    boxShadow: `0 0 0 1px ${color}30`
+                                }}
+                            >
+                                <Sparkles className="w-3 h-3 animate-pulse" /> Certified
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex-grow">
+                        <h4 className="text-2xl font-bold text-white-900 mb-2 leading-tight transition-colors duration-300">
+                            {title}
+                        </h4>
+                        <p className="text-gray-500 font-medium text-sm mb-6 flex items-center gap-2">
+                            {issuer} <span className="w-1 h-1 rounded-full bg-gray-300" /> {date}
+                        </p>
+
+                        {/* Proficiency Bar */}
+                        <div className="mb-6">
+                            <div className="flex justify-between text-xs font-semibold uppercase tracking-wider mb-2 text-gray-400">
+                                <span>Proficiency</span>
+                                <span style={{ color }}>{proficiency}%</span>
+                            </div>
+                            <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
+                                <motion.div
+                                    initial={{ width: 0 }}
+                                    whileInView={{ width: `${proficiency}%` }}
+                                    transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
+                                    className="h-full rounded-full"
+                                    style={{ background: color }}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Footer / Link */}
+                    <div className="mt-auto pt-6 border-t border-gray-100">
+                        <a
+                            href={link}
+                            target="_blank"
+                            className="group/btn flex items-center justify-center gap-2 w-full py-3 rounded-xl font-bold text-sm text-white shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 overflow-hidden relative"
+                            style={{ background: `linear-gradient(to right, ${color}, ${adjustColor(color, -20)})` }}
+                        >
+                            {/* Button Shimmer */}
+                            <div className="absolute inset-0 content-[''] bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full transition-transform duration-700 ease-in-out group-hover/btn:translate-x-full w-full" />
+
+                            View Credential
+                            <ExternalLink className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </motion.div>
+    );
+}
+
+// Helper to darken/lighten color roughly
+function adjustColor(color: string, amount: number) {
+    return color; // Simplification, real implementation would convert hex to rgb
+}
+
+
+// --- MAIN SECTION COMPONENT ---
 export function SkillsSection() {
     return (
-        <section id="skills" className="py-20 px-4">
-            <div className="container mx-auto">
-                <div className="text-center mb-16">
-                    <span className="text-primary font-medium tracking-wider uppercase text-sm">Expertise</span>
-                    <h2 className="text-4xl md:text-5xl font-bold text-gradient mb-6">Technical Skills</h2>
-                    <p className="text-muted-foreground max-w-xl mx-auto">
-                        A comprehensive overview of my technical proficiency, tools, and certifications.
-                    </p>
-                </div>
+        <section id="skills" className="py-24 px-4 relative overflow-hidden">
+            {/* Background Atmosphere */}
+            <div className="absolute top-40 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -z-10 animate-pulse-slow" />
+            <div className="absolute bottom-40 right-0 w-[500px] h-[500px] bg-purple-500/5 rounded-full blur-[100px] -z-10 animate-pulse-slow" style={{ animationDelay: '2s' }} />
 
-                {/* Stats Bar */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-20">
-                    {[
-                        { label: "Technologies", value: "20+" },
-                        { label: "Certifications", value: "2" },
-                        { label: "Awards", value: "2" },
-                        { label: "CGPA", value: "9.14" }
-                    ].map((stat, i) => (
-                        <GlassCard key={i} className="p-4 text-center border-white/5">
-                            <h3 className="text-2xl md:text-3xl font-bold text-white mb-1">{stat.value}</h3>
-                            <p className="text-xs text-muted-foreground uppercase tracking-widest">{stat.label}</p>
-                        </GlassCard>
-                    ))}
+            <div className="container mx-auto">
+                <div className="text-center mb-20">
+                    <span className="text-primary font-bold tracking-widest uppercase text-xs border border-primary/20 px-3 py-1 rounded-full bg-primary/5">
+                        My Toolkit
+                    </span>
+                    <h2 className="text-4xl md:text-6xl font-black text-white mt-6 mb-6 tracking-tight">
+                        Technical <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400">Expertise</span>
+                    </h2>
+                    <p className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
+                        A showcase of my technical arsenal, from databases to frontend frameworks, backed by professional certifications.
+                    </p>
                 </div>
 
                 <HexagonGrid />
 
-                {/* Certification Showcase */}
-                <div className="mt-24">
-                    <div className="flex items-center justify-center gap-4 mb-12">
-                        <div className="h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent w-24"></div>
-                        <h3 className="text-3xl font-bold text-center text-white">Certifications & Credentials</h3>
-                        <div className="h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent w-24"></div>
+                {/* Certification Showcase - Premium Style */}
+                <div className="mt-32 relative">
+                    <div className="flex items-center justify-center gap-6 mb-16">
+                        <div className="h-[2px] bg-gradient-to-r from-transparent via-black-700 to-transparent w-32"></div>
+                        <h3 className="text-3xl font-bold text-center text-white flex items-center gap-3">
+                            <Award className="w-8 h-8 text-yellow-400" /> Certifications
+                        </h3>
+                        <div className="h-[2px] bg-gradient-to-r from-transparent via-black-700 to-transparent w-32"></div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                        {/* MongoDB Card */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2 }}
-                            className="group relative rounded-2xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:shadow-[0_0_20px_rgba(0,237,100,0.4)] transition-all duration-300"
-                        >
-                            {/* Gradient Border via Pseudo-element approach or container */}
-                            <div className="absolute inset-0 p-[2px] rounded-2xl bg-gradient-to-br from-[rgba(0,237,100,0.3)] to-[rgba(19,170,82,0.3)]" style={{ mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)' }}></div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto px-4 perspective-container">
+                        <CertificationCard
+                            title="MongoDB Associate Developer"
+                            issuer="MongoDB"
+                            date="2024"
+                            icon={<Database className="w-full h-full" />}
+                            color="#10B981" // Green
+                            link="mongodb.jpeg"
+                            proficiency={90}
+                        />
 
-                            {/* Content Container */}
-                            <div className="relative h-full bg-white/5 backdrop-blur-xl p-6 pl-8 rounded-2xl">
-                                <div className="flex justify-between items-start mb-6">
-                                    <div className="w-10 h-10 flex items-center justify-center grayscale group-hover:grayscale-0 transition-all duration-300">
-                                        <Award className="w-10 h-10 text-[#00ED64]" />
-                                    </div>
-                                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[rgba(16,185,129,0.2)] text-[#10B981] text-xs font-medium border border-[#10B981]/20">
-                                        Certified <CheckCircle2 className="w-[12px] h-[12px]" />
-                                    </span>
-                                </div>
-
-                                <h4 className="text-xl font-bold text-gray-200 mb-2 leading-tight">
-                                    MongoDB Associate Developer
-                                </h4>
-
-                                <p className="text-sm text-gray-400 mb-6 font-medium">
-                                    Issued: 2024
-                                </p>
-
-                                <a href="mongodb.jpeg" className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg border border-[#00ED64]/50 text-[#00ED64] bg-transparent hover:bg-[#00ED64]/10 transition-colors duration-300 text-sm font-semibold w-full justify-center md:w-auto">
-                                    View Credential <ExternalLink className="w-4 h-4" />
-                                </a>
-                            </div>
-                        </motion.div>
-
-                        {/* Oracle Card */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.4 }}
-                            className="group relative rounded-2xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:shadow-[0_0_20px_rgba(248,0,0,0.4)] transition-all duration-300"
-                        >
-                            {/* Gradient Border */}
-                            <div className="absolute inset-0 p-[2px] rounded-2xl bg-gradient-to-br from-[rgba(248,0,0,0.3)] to-[rgba(199,70,52,0.3)]" style={{ mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)' }}></div>
-
-                            <div className="relative h-full bg-white/5 backdrop-blur-xl p-6 pl-8 rounded-2xl">
-                                <div className="flex justify-between items-start mb-6">
-                                    <div className="w-10 h-10 flex items-center justify-center grayscale group-hover:grayscale-0 transition-all duration-300">
-                                        <Cloud className="w-10 h-10 text-[#F80000]" />
-                                    </div>
-                                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[rgba(16,185,129,0.2)] text-[#10B981] text-xs font-medium border border-[#10B981]/20">
-                                        Certified <CheckCircle2 className="w-[12px] h-[12px]" />
-                                    </span>
-                                </div>
-
-                                <h4 className="text-xl font-bold text-gray-200 mb-2 leading-tight">
-                                    Oracle APEX Cloud Developer
-                                </h4>
-
-                                <p className="text-sm text-gray-400 mb-6 font-medium">
-                                    Issued: 2024
-                                </p>
-
-                                <a href="oracle.jpeg" className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg border border-[#F80000]/50 text-[#F80000] bg-transparent hover:bg-[#F80000]/10 transition-colors duration-300 text-sm font-semibold w-full justify-center md:w-auto">
-                                    View Credential <ExternalLink className="w-4 h-4" />
-                                </a>
-                            </div>
-                        </motion.div>
+                        <CertificationCard
+                            title="Oracle APEX Cloud Developer"
+                            issuer="Oracle"
+                            date="2024"
+                            icon={<Server className="w-full h-full" />}
+                            color="#f34646ff" // Red/Orange
+                            link="oracle.jpeg"
+                            proficiency={80}
+                        />
                     </div>
                 </div>
             </div>

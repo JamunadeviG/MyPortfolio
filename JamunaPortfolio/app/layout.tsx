@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 
-import { StickyNavbar } from '@/components/nav/sticky-navbar'
+
 
 export const metadata: Metadata = {
   title: 'My Portfolio',
@@ -20,8 +20,6 @@ export default function RootLayout({
         <meta name="theme-color" content="#0a0a0a" />
       </head>
       <body className="min-h-screen bg-background text-foreground font-sans antialiased relative overflow-x-hidden selection:bg-primary/30">
-        <StickyNavbar />
-
         {/* Main content */}
         <div className="relative z-30 pt-16">
           {children}

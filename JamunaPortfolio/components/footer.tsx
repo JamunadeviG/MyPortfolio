@@ -1,13 +1,9 @@
 "use client";
 
-import { Heart, ArrowUp } from "lucide-react";
+import { Heart } from "lucide-react";
 import Link from "next/link";
 
 export function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return (
     <footer className="relative bg-black pt-20 pb-10 overflow-hidden">
       {/* Wave Separator (SVG) */}
@@ -43,8 +39,19 @@ export function Footer() {
             &copy; {new Date().getFullYear()} All rights reserved.
           </p>
 
-          <div className="flex items-center gap-2 text-sm text-gray-400">
-            Made with <Heart className="w-4 h-4 text-red-500 animate-pulse fill-red-500" /> by Jamunadevi
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 text-sm text-gray-400">
+              Made with <Heart className="w-4 h-4 text-red-500 animate-pulse fill-red-500" /> by Jamunadevi
+            </div>
+            <button
+              onClick={() => {
+                localStorage.removeItem("jambot_intro_seen");
+                window.location.reload();
+              }}
+              className="text-xs text-gray-600 hover:text-gray-400 transition-colors border border-gray-800 px-2 py-1 rounded"
+            >
+              Reset Intro
+            </button>
           </div>
         </div>
       </div>
