@@ -19,6 +19,11 @@ export function SpeechBubble({ text, onComplete, duration = 2000, isTyping = fal
             const words = text.split("")
             let i = 0
 
+            // Start speech immediately when component mounts
+            if (onComplete) {
+                onComplete()
+            }
+
             const interval = setInterval(() => {
                 if (i < words.length) {
                     currentText += words[i]
@@ -32,8 +37,11 @@ export function SpeechBubble({ text, onComplete, duration = 2000, isTyping = fal
             return () => clearInterval(interval)
         } else {
             setDisplayedText(text)
+            if (onComplete) {
+                onComplete()
+            }
         }
-    }, [text, isTyping])
+    }, [text, isTyping, onComplete])
 
     return (
         <motion.div
@@ -52,9 +60,9 @@ export function SpeechBubble({ text, onComplete, duration = 2000, isTyping = fal
             <motion.div
                 layout
                 className="relative bg-white text-black px-6 py-4 rounded-3xl shadow-xl w-fit max-w-[280px]"
-                style={{ borderRadius: "2rem 2rem 2rem 0.5rem" }} // More organic growing shape
+                style={{ borderRadius: "5rem 5rem 5rem 5rem" }} // More organic growing shape
             >
-                <motion.p layout className="font-bold text-lg md:text-xl leading-tight whitespace-pre-wrap">
+                <motion.p layout className="font-bold text-lg md:text-xl leading-tight whitespace-pre-wrap text-center">
                     {displayedText}
                     {isTyping && displayedText.length < text.length && <span className="animate-pulse ml-0.5">|</span>}
                 </motion.p>

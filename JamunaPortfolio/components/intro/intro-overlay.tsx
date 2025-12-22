@@ -109,13 +109,13 @@ export function IntroOverlay({ onComplete }: IntroOverlayProps) {
                     {/* SPEECH BUBBLES - Anchored to Bot */}
                     <AnimatePresence mode="wait">
                         {stage === "talking-1" && (
-                            <SpeechBubble key="1" text="Hi!!👋" isTyping={true}/>
+                            <SpeechBubble key="1" text="Hi! 👋" isTyping={true} />
                         )}
                         {stage === "talking-2" && (
-                            <SpeechBubble key="2" text="Welcome to Jamuna's Portfolio..!!✨" isTyping={true} />
+                            <SpeechBubble key="2" text={"Welcome to Jamunadevi's\nPortfolio! ✨"} isTyping={true} />
                         )}
                         {stage === "talking-3" && (
-                            <SpeechBubble key="3" text="Ready to explore amazing projects?" isTyping={true} />
+                            <SpeechBubble key="3" text={"Ready to explore\namazing projects? "} isTyping={true} />
                         )}
                         {stage === "walking-out" && (
                             <SpeechBubble key="4" text="Let's go!" />
@@ -144,13 +144,13 @@ export function IntroOverlay({ onComplete }: IntroOverlayProps) {
                 </AnimatePresence>
 
             </div>
-{/* BACKGROUND AMBIANCE */}
+            {/* BACKGROUND AMBIANCE */}
             <div className="absolute inset-0 z-0 pointer-events-none">
                 {/* Stars/Particles would go here */}
                 <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-white rounded-full animate-ping opacity-20" style={{ animationDuration: "3s" }} />
                 <div className="absolute top-3/4 right-1/3 w-1.5 h-1.5 bg-blue-300 rounded-full animate-ping opacity-30" style={{ animationDuration: "5s" }} />
             </div>
-            
+
         </motion.div>
     )
 }
